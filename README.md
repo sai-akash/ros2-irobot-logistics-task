@@ -39,8 +39,26 @@ rof-exercises/
 │   └── launch/
 │       ├── navigation_launch.py
 │       └── slam_launch.py
-└── docs/                       # TF tree snapshots captured during runtime
+└── docs/                       # Screenshots and TF tree snapshots from runtime
+    ├── nav2_rviz.png               #   RViz2 — Nav2 active with costmaps and planned path
+    └── yolo_detection.png          #   YOLO inference — bounding boxes with class/confidence
 ```
+
+---
+
+## Results
+
+### Task 2 — Autonomous Navigation (Nav2)
+
+![Nav2 RViz](docs/nav2_rviz.png)
+
+RViz2 showing the active Nav2 stack: AMCL particle cloud for localisation, global and local costmaps built from lidar scan data, and the planned trajectory to the goal pose.
+
+### Task 3 — Object Detection (YOLO)
+
+![YOLO Detection](docs/yolo_detection.png)
+
+YOLO inference running in the Gazebo simulation — detecting objects with class labels and confidence scores (e.g. `wine glass: 93%`, `bottle: 91%`).
 
 ---
 
