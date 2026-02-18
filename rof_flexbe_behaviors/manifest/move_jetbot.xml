@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="move_jetbot">
+
+	<executable package_path="rof_flexbe_behaviors.move_jetbot_sm" class="move_jetbotSM" />
+	<tagstring>rof jetbot</tagstring>
+	<author>Julian</author>
+	<date>Thu Nov 24 2022</date>
+	<description>
+		Lets the simulated jetbot drive around.
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>
