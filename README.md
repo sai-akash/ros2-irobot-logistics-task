@@ -1,29 +1,42 @@
-# Robotics Frameworks — Exercises 10–12
+# Autonomous Logistics Robot — FAPS Lab, FAU Erlangen-Nuremberg
 
-**Course:** Robotics Frameworks (RoF) · FAU Erlangen-Nuremberg
+**Lab:** Institute for Factory Automation and Production Systems (FAPS) · FAU Erlangen-Nuremberg
 **Platform:** iRobot Create 3 / TurtleBot3 Waffle · ROS 2 Humble · Ubuntu 22.04
 
-This repository contains the custom ROS 2 packages developed for Exercise Units 10–12, covering autonomous navigation, YOLO-based perception, and hierarchical state machine control using the FlexBE framework.
+Autonomous mobile robot project completed at the FAPS lab, covering robot familiarisation, autonomous navigation, object detection via transfer learning, and hierarchical state machine control for a simulated logistics workflow.
 
 ---
 
-## Overview
+## Tasks
 
-The exercises integrate four subsystems into a single autonomous logistics workflow:
+| Task | Description | Key Technology |
+|------|-------------|----------------|
+| 1 | Robot familiarisation with iRobot Create 3 | ROS 2 topics, actions, `ros2 topic pub` |
+| 2 | Autonomous navigation in the FAPS factory world | Nav2 stack (AMCL + DWB planner + SLAM Toolbox) |
+| 3 | Object detection using transfer learning | YOLO + `yolo_msgs` |
+| 4 | State machine for logistics automation | FlexBE behaviours & states |
 
-| Task | Topic | Key Technology |
-|------|-------|----------------|
-| 1 | iRobot Create 3 Familiarisation | ROS 2 topics, actions, `ros2 topic pub` |
-| 2 | Autonomous Navigation | Nav2 stack (AMCL + DWB planner + SLAM Toolbox) |
-| 3 | Object Detection | YOLO (transfer learning) + `yolo_msgs` |
-| 4 | State Machine | FlexBE behaviours & states |
+---
+
+## Results
+
+### Task 2 — Autonomous Navigation (Nav2)
+
+![Nav2 RViz](docs/nav2_rviz.png)
+
+RViz2 showing the active Nav2 stack: AMCL particle cloud for localisation, global and local costmaps built from lidar scan data, and the planned trajectory to the goal pose.
+
+### Task 3 — Object Detection (YOLO)
+
+![YOLO Detection](docs/yolo_detection.png)
+
+YOLO inference running in the FAPS Gazebo simulation — detecting objects with class labels and confidence scores (e.g. `wine glass: 93%`, `bottle: 91%`).
 
 ---
 
 ## Repository Structure
 
 ```
-rof-exercises/
 ├── rof_flexbe_states/          # Custom FlexBE states (Task 4)
 │   ├── drive2goal_state.py     #   Nav2 NavigateToPose action client
 │   ├── find_object_state.py    #   YOLO detection subscriber
@@ -43,22 +56,6 @@ rof-exercises/
     ├── nav2_rviz.png               #   RViz2 — Nav2 active with costmaps and planned path
     └── yolo_detection.png          #   YOLO inference — bounding boxes with class/confidence
 ```
-
----
-
-## Results
-
-### Task 2 — Autonomous Navigation (Nav2)
-
-![Nav2 RViz](docs/nav2_rviz.png)
-
-RViz2 showing the active Nav2 stack: AMCL particle cloud for localisation, global and local costmaps built from lidar scan data, and the planned trajectory to the goal pose.
-
-### Task 3 — Object Detection (YOLO)
-
-![YOLO Detection](docs/yolo_detection.png)
-
-YOLO inference running in the Gazebo simulation — detecting objects with class labels and confidence scores (e.g. `wine glass: 93%`, `bottle: 91%`).
 
 ---
 
@@ -89,9 +86,9 @@ Clone this repo into your `ros2_ws/src/` alongside the required external package
 cd ~/ros2_ws/src
 
 # This repository
-git clone https://github.com/YOUR_USERNAME/rof-exercises-10-12.git
+git clone https://github.com/YOUR_USERNAME/ros2-irobot-logistics-task.git
 
-# Course simulation environment (FAU)
+# FAPS lab simulation environment
 git clone https://git.faps.uni-erlangen.de/robotik-public/robotics-frameworks-exercises-25-26/rof_gazebo.git
 
 # FlexBE framework
@@ -113,14 +110,14 @@ source install/setup.bash
 ## Running the System
 
 ```bash
-# 1. Launch the Gazebo simulation
+# 1. Launch the FAPS factory simulation in Gazebo
 ros2 launch rof_gazebo t3_simulation_faps.launch.py
 
-# 2. Launch SLAM (for mapping) or Navigation (with existing map)
+# 2. Build the map with SLAM, then navigate with Nav2
 ros2 launch rof_navigation slam_launch.py
 ros2 launch rof_navigation navigation_launch.py
 
-# 3. Start FlexBE
+# 3. Start FlexBE to run the state machine
 ros2 launch flexbe_app flexbe_full.launch.py
 ```
 
